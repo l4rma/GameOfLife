@@ -1,14 +1,33 @@
 package org.example;
 
 public class Simulation {
-    private int width;
-    private int height;
-    private int[][] board;
+    public int width;
+    public int height;
+    public int[][] board;
 
     public Simulation(int width, int height) {
         this.width = width;
         this.height = height;
         board = new int[width][height];
+    }
+
+    public void setAlive(int x, int y) {
+        this.setState(x,y,1);
+    }
+
+    public void setDead(int x, int y) {
+        this.setState(x,y,0);
+    }
+
+    public void setState(int x, int y, int state) {
+        if (x < 0 || x >= width) {
+            return;
+        }
+        if (y < 0 || y >= height) {
+            return;
+        }
+
+        this.board[x][y] = state;
     }
 
     public void printBoard() {
