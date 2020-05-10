@@ -1,6 +1,9 @@
 package org.example;
 
 public class Simulation {
+    public static int DEAD = 0;
+    public static int ALIVE = 1;
+
     public int width;
     public int height;
     public int[][] board;
@@ -12,11 +15,11 @@ public class Simulation {
     }
 
     public void setAlive(int x, int y) {
-        this.setState(x,y,1);
+        this.setState(x,y,ALIVE);
     }
 
     public void setDead(int x, int y) {
-        this.setState(x,y,0);
+        this.setState(x,y,DEAD);
     }
 
     public void setState(int x, int y, int state) {
@@ -34,7 +37,7 @@ public class Simulation {
         for (int y = 0; y < height; y++) {
             String line = "| ";
             for (int x = 0; x < width; x++) {
-                if(this.board[x][y] == 0) {
+                if(this.board[x][y] == DEAD) {
                     line += ". ";
                 } else {
                     line += "x ";
@@ -76,19 +79,19 @@ public class Simulation {
         int[][] nextBoard = new int[width][height];
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                if (getState(x, y) == 1) {
+                if (getState(x, y) == ALIVE) {
                     if (this.neighbours(x,y) < 2) {
                         nextBoard[x][y] = 0;
                     } else if (this.neighbours(x,y) == 2 || this.neighbours(x,y) == 3) {
-                        nextBoard[x][y] = 1;
+                        nextBoard[x][y] = ALIVE;
                     } else {
-                        nextBoard[x][y] = 0;
+                        nextBoard[x][y] = DEAD;
                     }
-                } else if (getState(x, y) == 0) {
+                } else if (getState(x, y) == DEAD) {
                     if (this.neighbours(x,y) == 3) {
-                        nextBoard[x][y] = 1;
+                        nextBoard[x][y] = ALIVE;
                     } else {
-                        nextBoard[x][y] = 0;
+                        nextBoard[x][y] = DEAD;
                     }
                 }
             }
@@ -99,7 +102,7 @@ public class Simulation {
     public void fillBoard() {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                this.board[x][y] = 0;
+                this.board[x][y] = DEAD;
             }
         }
     }
@@ -108,9 +111,9 @@ public class Simulation {
         Simulation grid = new Simulation(7,5);
         grid.fillBoard();
 
-        grid.board[2][2] = 1;
-        grid.board[3][2] = 1;
-        grid.board[4][2] = 1;
+        grid.board[2][2] = ALIVE;
+        grid.board[3][2] = ALIVE;
+        grid.board[4][2] = ALIVE;
         grid.printBoard();
         grid.step();
         grid.printBoard();
