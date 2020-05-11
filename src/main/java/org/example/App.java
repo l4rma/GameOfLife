@@ -15,6 +15,7 @@ public class App extends Application {
     public void start(Stage stage) {
         MainView mainView = new MainView();
         Scene scene = new Scene(mainView, 640, 480);
+        stage.setTitle("Game of Life Simulator");
         stage.setScene(scene);
         stage.show();
         mainView.draw();
